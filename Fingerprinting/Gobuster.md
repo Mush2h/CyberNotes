@@ -19,8 +19,6 @@ It has three main modes available:
 
 ### Basic Examples
 
-
-
 ```shell
 gobuster dir -u http://<ip>/<directorio> -t 20 -w /usr/
 
