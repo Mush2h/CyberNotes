@@ -1,18 +1,20 @@
 # Nmap
 
-* Creado inicialmente como herramienta de código abierto para eralizar escaneos de puertos que corría bajo Linux.
-* Es un potente  escáner de redes disponible para sistemas operativos 
-* Las principales tareas :
-	* Descubrimiento de hosts de una red
-	* Deteccion de los puertos abiertos en cada equipo 
-	* Determinación de los servicios que está corriendo en cada maquina 
-	* Descubrimiento del sistema operativo y su version 
-	* Obtencion de características del hardware de red instalado
-	* Tiene Script desarrollados que se denominan NSE 
+- Initially created as an open-source tool for port scanning, running on Linux.
+- It is a powerful network scanner available for multiple operating systems.
 
-## Descubrimiento de host
+## Main Tasks
 
-* Esta funcion contamos con el comando *nmap*
+- **Host discovery**: Identifying active hosts on a network.
+- **Open port detection**: Determining which ports are open on each device.
+- **Service identification**: Detecting the services running on each machine.
+- **Operating system detection**: Identifying the OS and its version.
+- **Hardware information**: Gathering details about installed network hardware.
+- **NSE Scripts**: Includes developed scripts known as Nmap Scripting Engine (NSE).
+
+## Host Discovery
+
+The basic host discovery function is achieved using the `nmap` command:
 
 ```bash
 nmap 192.168.1.130
@@ -21,104 +23,115 @@ nmap 192.168.1.0/24
 nmap microsoft.com
 ```
 
-### Opciones avanzadas de parámetros
+### Advanced Parameters
 
-* -iL *fichero* : Buscará hosts en todas las direcciones incluidas en el fichero especificado.
-* -excludefile *fichero* : Buscará en todas las direcciones posibles excepto en aquellas que están incluidas en el fichero especificado.
-* -PS *puerto* : busca host enviando un **TCP SYN** al puerto n especificado
-* -PA *puerto* : busca hosts enviando un **TCP ACK** al puerto especificado.
-* -PU puerto : busca hosts enviando un datagrama **UDP** al puerto especificado
-* -n : no realizará la resolución de DNS
-* -R : resolverá los DNS de todos los hosts objetivo que encuentre.
-* -treceroute : Trazará la ruta de los objetivos que encuentre
+- `-iL <file>`: Scans hosts listed in the specified file.
+- `--excludefile <file>`: Excludes hosts listed in the specified file.
+- `-PS <port>`: Sends a **TCP SYN** to the specified port for host discovery.
+- `-PA <port>`: Sends a **TCP ACK** to the specified port for host discovery.
+- `-PU <port>`: Sends a **UDP datagram** to the specified port for host discovery.
+- `-n`: Disables DNS resolution.
+- `-R`: Resolves DNS for all discovered hosts.
+- `--traceroute`: Traces the route to discovered targets.
 
+## Port Scanning
 
-## Análisis de puertos
-
-* Conocer el estado de todos los puertos de un objetivo determinado, los 65500.
+To identify the state of all 65,500 ports on a target:
 
 ```bash
 nmap <ip> -p-
 nmap 192.168.1.1 -p-
 ```
 
-* También podemos analizar los principales 100 puertos más comunes .
+
+To scan only the top 100 most common ports:
+
 
 ```bash
 nmap <ip> -F
 nmap 192.168.1.1 -F
 ```
 
-### Opciones avanzadas de parámetros
+### Advanced Parameters
 
-* -sS : sondeo TCP SYN
-* -sT : sondeo TCP connect
-* -sA : sondeo TCP ACK
-* -sw : sondeo de ventana TCP
-* -sM : sondeo TCP Maimon (Un tipo de escaneo sutil y no muy agresivo para pasar desapercibido)
+- `-sS`: TCP SYN scan.
+- `-sT`: TCP connect scan.
+- `-sA`: TCP ACK scan.
+- `--sw`: TCP window scan.
+- `--sM`: TCP Maimon scan (a subtle and stealthy method).
 
-## Detección de Servicios y Sistema Operativo
+## Service and OS Detection
 
-En funcion de los puertos abiertos , es capaz de averiguar el sistema operativo y las versiones de todos ellos .
-* -sV : activa la detencción de versiones
-* --allports : no excluye ningún puerto de la detección de versiones
-* --version-intensity *intensidad* : Establece la intensidad con la que se va a realizar de 0-9 siendo menos a mas agresivo, pero requiere mas recursos.
-* -sR : sondeo RCP
-* -**O** : Detección del sistema operativo
-* -v / -V :aumenta o disminuye el nivle de detalle del análisis
+Based on open ports, Nmap can detect operating systems and service versions:
 
-## Evasión de Cortafuegos y detectores de instrusión
+### Parameters
 
-* Son comandos pueden ser utilizados para intentar burlar aquellos sistemas de seguridad que haya instalados.
+- `-sV`: Enables version detection.
+- `--allports`: Does not exclude any ports during version detection.
+- `--version-intensity <level>`: Sets intensity from 0 (least aggressive) to 9 (most aggressive).
+- `--sR`: RCP scan.
+- `--O`: OS detection.
+- `--v / -V`: Adjusts verbosity level of the analysis.
 
-* No se trata de un trabajo mecánico
+## Firewall and Intrusion Detection Evasion
 
-### Opciones avanzadas
-*  -f : Fragmenta los paquetes enviados
-*  -D <señuelo1,señuelo2> : esconde el análisis con señuelos
-*  -S *ip* : falsea la dirección IP de origen.
-*  -g *puerto* : falsea el puerto de origen
-*  -spoof-mac *direccion mac* : falsea la direccion MAC de origen
-* -e *interfaz* : especifica la interfaz a utilizar
-* --data-length *numero* : Añade datos aleatorios a los paquetes enviados en el sondeo
+Commands to bypass security systems:
+
+### Advanced Options
+
+- `-f`: Fragments packets sent during scanning.
+- `--D <decoy1,decoy2>`: Uses decoys to hide the real source of the scan.
+- `--S <ip>`: Spoofs the source IP address.
+- `--g <port>`: Spoofs the source port.
+- `--spoof-mac <mac_address>`: Spoofs the source MAC address.
+- `--e <interface>`: Specifies the interface to use for scanning.
+- `--data-length <number>`: Adds random data to packets.
 
 ```bash
 nmap -f <ip>
 ```
 
-## Opciones de control de tiempo y rendimiento
+## Time and Performance Control Options
 
-* -T *número* : establece la velocidad que se realiza el análisis. El número es de 0 a 5 cuanto mas bajo sea ,sera mas sigiloso y llevará más tiempo 
-* --min-parallelism *número* / ----max-parallelism *número* ajustan el número de sondas enviadas en paralelo.
-* --host-timeout *tiempo* : desecha equipos objetivos lentos
+### Parameters
 
-## Exportar la salida a un formato en concreto
+- `--T <level>`: Sets scan speed (0 is slowest but stealthiest; 5 is fastest).
+- `--min-parallelism <number> / --max-parallelism <number>`: Adjusts probes sent in parallel.
+- `--host-timeout <time>`: Ignores slow targets after a timeout.
 
-* -oX *fichero* : salida XML
-(en este formato se puede importa a mestasploit)
-* -oG fichero : salida "grepeable"
-* -oS *fichero* : salida Script Kiddie
-* -oA *fichero* : todos los formatos
+## Exporting Results
+
+Nmap allows exporting results in specific formats:
+
+### Options
+
+- `--oX <file>`: Exports results in XML format (compatible with Metasploit).
+- `--oG <file>`: Exports results in grepable format.
+- `--oS <file>`: Exports results in Script Kiddie format.
+- `--oA <file>`: Exports results in all formats.
 
 ```bash
 nmap -p- -sS 192.168.37.136 --min-rate 9000 -oG resultado_nmap.grep
 nmap -p- -sS 192.168.37.136 --min-rate 9000 -oX resultado_nmap.xml
 ```
 
-## Ejecución de script
+## Script Execution
 
-* -sC : ejecuta el ánalisis con los scripts por defecto 
-* -script *script* : ejecuta el o los scripts específicado
-* -script-args *argumento=valor* : proporciona argumentos y sus valores correspondientes al scripts a ejecutar
-* -script-trace :  muestra los intercambios de información de entrada y salida que se produzcan 
-* -6 : activa el sondeo en IPv6.
+NSE scripts allow advanced scanning capabilities:
+
+### Parameters
+
+- `--sC`: Runs default scripts during scanning.
+- `--script <script_name>`: Runs specific scripts provided by Nmap NSE library.
+- `--script-trace`: Displays input/output exchanges during script execution.
+
 
 ```bash
 nmap -p 21 --script ftp-brute <ip>
 ```
 
 
-## Escaneo de menos agresivo a más agresivo.
+## Scanning Levels (From Less Aggressive to More Aggressive)
 
 ```bash
 nmap <ip>
@@ -130,26 +143,26 @@ nmap -sS -sU -sV -sC --script all <ip>
 ```
 
 
-## Escaneos interesantes
+## Interesting Scans
+
+### Vulnerability and Authentication Scripts
 
 ```bash
 nmap --script=vuln --script=auth -v --min-rate 9000 192.168.37.136
 ```
-
-* Lanza scripts con autenticacion por defecto en los servicios que encuentre
+### Firewall Bypass Script
 
 ```bash
 nmap --script=firewall-bypass -v 192.168.1.1
 ```
 
-* Lanza script para intentar bypasear los firewall 
 
-## Escaneo silenciosos pero tardan mucho 
+## Silent but Long Scans
 
 ```shell 
 nmap -T2 -Pn -n -sV <ip>
 nmap -sS -T4 -Pn -p 1-65535 -n --min-rate 1000 --max-retries 0 <objetivo>
 
-#puertos udp
+# udp
 nmap -sU -T4 -Pn -p 1-65535 -n --min-rate 1000 --max-retries 0 <objetivo>
 ```
