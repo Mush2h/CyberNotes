@@ -10,20 +10,20 @@ hydra -l/-L <user/list> -p/-P <password/dictionary> <IP address> <protocol>
 
 ## Key Parameters
 
-- `l`: Specify a single username
-- `L`: Use a list of usernames
-- `p`: Specify a single password
-- `P`: Use a password dictionary
-- `s`: Specify a port number
-- `o`: Save attack results to a file
+- `-l`: Specify a single username
+- `-L`: Use a list of usernames
+- `-p`: Specify a single password
+- `-P`: Use a password dictionary
+- `-s`: Specify a port number
+- `-o`: Save attack results to a file
 
 
 ## Advanced Options
 
-- `t`: Set number of parallel connections per target
-- `w`: Wait time between connections
-- `f`: Stop attack after first found login/password pair
-- `v`: Verbose mode, show login+pass for each attempt
+- `-t`: Set number of parallel connections per target
+- `-w`: Wait time between connections
+- `-f`: Stop attack after first found login/password pair
+- `-v`: Verbose mode, show login+pass for each attempt
 
 
 ## Examples
