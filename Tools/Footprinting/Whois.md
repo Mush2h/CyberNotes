@@ -23,7 +23,7 @@ WHOIS is a powerful protocol and tool for searching and retrieving information a
 
 ### Command Syntax
 
-```shell
+```ruby
 kali@kali:~$ whois <domain>
 kali@kali:~$ whois cocacola.com
 ```
