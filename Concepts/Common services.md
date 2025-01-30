@@ -1,40 +1,125 @@
 # Common Services
 
-## FTP Service
-FTP es un protocolo ampliamente utilizado para la transferencia de archivos en redes. La enumeración del servicio FTP implica recopilar información relevante, como la versión del servidor FTP, la configuración de permisos de archivos, los usuarios y las contraseñas (mediante ataques de fuerza bruta o guessing), entre otros.
+## FTP Service (Port 21)
+FTP is a widely used protocol for file transfer over networks. FTP service enumeration involves gathering relevant information such as FTP server version, file permission configurations, users, and passwords (through brute force attacks or guessing), among others.
 
+To connect:
 
-
-Para conectarte :
-Port 21.
 ```shell 
  ftp <Ip>
 ```
 
-### Usuarios por defecto 
+### Default User
 
 ```ruby
 anonymous:<none>
 ```
 
-## SSH Service
+### FTP Enumeration 
 
-SSH es un protocolo de administración remota que permite a los usuarios controlar y modificar sus servidores remotos a través de Internet mediante un mecanismo de autenticación seguro. Como una alternativa más segura al protocolo Telnet, que transmite información sin cifrar, SSH utiliza técnicas criptográficas para garantizar que todas las comunicaciones hacia y desde el servidor remoto estén cifradas.
+```ruby
+nmap -p 21 --script=ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221 <IP>
+```
 
-SSH proporciona un mecanismo para autenticar un usuario remoto, transferir entradas desde el cliente al host y retransmitir la salida de vuelta al cliente. Esto es especialmente útil para administrar sistemas remotos de manera segura y eficiente, sin tener que estar físicamente presentes en el sitio.
 
-Cabe destacar que a través de la versión de SSH, también podemos identificar el codename de la distribución que se está ejecutando en el sistema.
 
-Por ejemplo, si la versión del servidor SSH es “OpenSSH 8.2p1 Ubuntu 4ubuntu0.5“, podemos determinar que el sistema está ejecutando una distribución de Ubuntu. El número de versión “4ubuntu0.5” se refiere a la revisión específica del paquete de SSH en esa distribución de Ubuntu. A partir de esto, podemos identificar el codename de la distribución de Ubuntu, que en este caso sería “Focal” para Ubuntu 20.04.
+## SSH Service(Port 22)
 
-Para conectarte:
-Port 22
+- SSH is a remote administration protocol that allows users to control and modify their remote servers over the Internet through a secure authentication mechanism. As a more secure alternative to the Telnet protocol, which transmits information in plain text, SSH uses cryptographic techniques to ensure that all communications to and from the remote server are encrypted.
+
+- SSH provides a mechanism to authenticate a remote user, transfer inputs from the client to the host, and relay the output back to the client. This is particularly useful for securely and efficiently managing remote systems without having to be physically present at the site.
+It's worth noting that through the SSH version, we can also identify the codename of the distribution running on the system.
+
+- For example, if the SSH server version is "OpenSSH 8.2p1 Ubuntu 4ubuntu0.5", we can determine that the system is running an Ubuntu distribution. The version number "4ubuntu0.5" refers to the specific revision of the SSH package in that Ubuntu distribution. From this, we can identify the codename of the Ubuntu distribution, which in this case would be "Focal" for Ubuntu 20.04.
+
+To connect:
+
 ```shell 
  ssh <Ip>
 ```
 
-## HTTP y HTTPS Service
+### SSH Enumeration 
 
-HTTP (Hypertext Transfer Protocol) es un protocolo de comunicación utilizado para la transferencia de datos en la World Wide Web. Se utiliza para la transferencia de contenido de texto, imágenes, videos, hipervínculos, etc. El puerto predeterminado para HTTP es el puerto 80.
+```ruby
+nmap -p 22 --script=ssh2-enum-algos,ssh-hostkey,ssh-auth-methods <IP>
+```
 
-HTTPS (Hypertext Transfer Protocol Secure) es una versión segura de HTTP que utiliza SSL / TLS para cifrar la comunicación entre el cliente y el servidor. Utiliza el puerto 443 por defecto. La principal diferencia entre HTTP y HTTPS es que HTTPS utiliza una capa de seguridad adicional para cifrar los datos, lo que los hace más seguros para la transferencia.
+## HTTP y HTTPS Service ( Port 80 / Port 443)
+
+- HTTP (Hypertext Transfer Protocol) is a communication protocol used for data transfer on the World Wide Web. It is used for transferring text content, images, videos, hyperlinks, etc. The default port for HTTP is port 80.
+
+- HTTPS (Hypertext Transfer Protocol Secure) is a secure version of HTTP that uses SSL/TLS to encrypt communication between the client and server. It uses port 443 by default. The main difference between HTTP and HTTPS is that HTTPS uses an additional security layer to encrypt data, making it more secure for transfer.
+
+
+### HTTP/HTTPS Enumeration
+
+```ruby
+nmap -p 80,443 --script=http-enum,http-headers,http-methods,http-webdav-scan <IP>
+gobuster dir -u http://<IP> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+```
+
+
+## SMB Service ( Port 445)
+`
+SMB (Server Message Block) is a network file sharing protocol that allows applications on a computer to read and write to files and to request services from server programs in a computer network. It's commonly used for providing shared access to files, printers, and serial ports between nodes on a network.
+
+To list available shares:
+```ruby
+smbclient -L 127.0.0.1 -N 
+```
+
+To connect to a specific share:
+
+```ruby
+smbclient //127.0.0.1/myshare -N
+```
+
+### Advanced Options
+- `-L`: List active resources
+- `-N`: Enable a null session
+- `-U`, `--user=USERNAME`: Specify the username for authentication
+```ruby
+smbclient -L //192.168.1.100 -U test
+```
+- `-W`, --workgroup=WORKGROUP: Set the workgroup name
+```ruby
+smbclient -L //192.168.1.100 -W PENTESTDOMAIN
+```
+- `-p`, --port=PORT: Connect to a specific port
+```ruby
+smbclient -L //192.168.1.100 -p 4455
+```
+- `-m`, --max-protocol=MAXPROTOCOL: Set max protocol level
+```ruby
+smbclient -L //192.168.1.100 -m SMB3
+```
+- `-c` 'COMMAND': Execute a single command
+```ruby
+smbclient //192.168.1.100/share -c 'ls'
+```
+- get FILENAME: Download a file
+```ruby
+smbclient //192.168.1.100/share -c 'get secret.txt'
+```
+- put FILENAME: Upload a file
+```ruby
+smbclient //192.168.1.100/share -c 'put local_file.txt'
+```
+
+### SMB Enumeration 
+
+```ruby
+enum4linux -a <IP>
+nmap -p 445 --script=smb-enum-shares,smb-enum-users <IP>
+```
+
+### Tool Smabmap 
+
+SMBMap is a powerful tool designed for enumerating and interacting with SMB (Server Message Block) shares across networks. It allows users to list share drives, examine drive permissions, view share contents, and even execute remote commands on target systems
+
+```ruby
+smbmap -H 127.0.0.1
+```
+
+This tool is quite useful as it shows permissions and comments.
