@@ -121,5 +121,11 @@ SMBMap is a powerful tool designed for enumerating and interacting with SMB (Ser
 ```ruby
 smbmap -H 127.0.0.1
 ```
+#### Advanced Options
 
-This tool is quite useful as it shows permissions and comments.
+- `-H`: This parameter is used to specify the IP address or hostname of the SMB server to which you want to connect.
+- `-P`: This parameter is used to specify the TCP port used for the SMB connection. The default port for SMB is 445, but if the SMB server is configured to use a different port, this parameter should be used to specify the correct port.
+- `-u`: This parameter is used to specify the username for the SMB connection.
+- `-p`: This parameter is used to specify the password for the SMB connection.
+- `-d`: This parameter is used to specify the domain to which the user being used for the SMB connection belongs.
+- `-s`: This parameter is used to specify the specific shared resource you want to enumerate. If not specified, smbmap will attempt to enumerate all shared resources on the SMB server.
