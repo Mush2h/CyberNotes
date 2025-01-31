@@ -38,6 +38,10 @@ Filter plugins
 curl -s -X GET "https://example.com" | grep -oP 'plugins/\K[^/]+' | sort -u
 ```
 
+```ruby
+wpscan --url https://example.com -U <user> -P <dicc> --api-token="token"
+```
+
 - Additionally, another resource we consider is the xmlrpc.php file. This file is a WordPress feature that allows communication between the website and external applications using the XML-RPC protocol.
 
 - The xmlrpc.php file is used by many WordPress plugins and mobile applications to interact with the website and perform various tasks, such as publishing content, updating the site, and obtaining information.
@@ -47,3 +51,4 @@ curl -s -X GET "https://example.com" | grep -oP 'plugins/\K[^/]+' | sort -u
 ### Link xmlrpc.php
 
 https://the-bilal-rizwan.medium.com/wordpress-xmlrpc-php-common-vulnerabilites-how-to-exploit-them-d8d3c8600b32
+
