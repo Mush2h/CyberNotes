@@ -43,3 +43,7 @@ curl -s -X GET "https://example.com" | grep -oP 'plugins/\K[^/]+' | sort -u
 - The xmlrpc.php file is used by many WordPress plugins and mobile applications to interact with the website and perform various tasks, such as publishing content, updating the site, and obtaining information.
 
 - However, this file can also be abused by malicious attackers to apply brute force and discover valid credentials of site users. This is because xmlrpc.php allows attackers to make an unlimited number of login requests without being blocked, making the execution of a brute force attack relatively simple.
+
+### Link xmlrpc.php
+
+https://the-bilal-rizwan.medium.com/wordpress-xmlrpc-php-common-vulnerabilites-how-to-exploit-them-d8d3c8600b32
