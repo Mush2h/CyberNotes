@@ -35,7 +35,7 @@ It's worth noting that through the SSH version, we can also identify the codenam
 To connect:
 
 ```shell 
- ssh <Ip>
+ ssh user@ip -p port
 ```
 
 ### SSH Enumeration 
