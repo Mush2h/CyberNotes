@@ -101,3 +101,28 @@ droopescan scan drupal -u <target_url>
 - `t`: Theme checks
 - `v`: Version checks
 - `i`: Interesting URL checks
+
+## Magento (Magescan)
+- MageScan is a powerful tool designed to evaluate the quality and security of Magento sites. Here's a cheatsheet highlighting its most useful parameters and features:
+
+```ruby
+magescan.phar scan <url>
+```
+
+### Key Parameters
+- `scan:` Perform a full scan of the target Magento site
+- `--insecure, -k`: Allow insecure SSL connections
+- `<url>`: Specify the target Magento URL to scan
+
+### Specific Scan Types
+- `scan:all`: Run all available scans
+- `scan:catalog`: Check for catalog information exposure
+- `scan:modules`: Detect installed modules
+- `scan:patch`: Check for applied patches
+- `scan:sitemap`: Check sitemap
+- `scan:unreachable`: Check unreachable paths
+- `scan:version`: Get the Magento version
+
+### Output Options
+- `--format=<format>`: Specify output format (text, json, xml)
+- `--output=<file>`: Save output to a file
