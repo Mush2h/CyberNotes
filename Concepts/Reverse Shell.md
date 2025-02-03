@@ -1,6 +1,6 @@
 # Reverse Shell
 
-- A technique that allows an attacker to connect to a remote machine from their own machine. It establishes a connection from the compromised machine to the attacker's machine. This is achieved by executing a malicious program or a specific instruction on the remote machine that establishes a connection back to the attacker's machine, allowing them to take control of the remote machine.
+- This technique that allows an attacker to connect to a remote machine from their own machine. It establishes a connection from the compromised machine to the attacker's machine. This is achieved by executing a malicious program or a specific instruction on the remote machine that establishes a connection back to the attacker's machine, allowing them to take control of the remote machine.
 
 ```ruby
 # On the attacker's machine (IP: 192.168.1.100)
