@@ -55,7 +55,7 @@ https://the-bilal-rizwan.medium.com/wordpress-xmlrpc-php-common-vulnerabilites-h
 
 ## Joomla (Joomscan)
 
-JoomScan is an open-source vulnerability scanner designed specifically for Joomla CMS
+- JoomScan is an open-source vulnerability scanner designed specifically for Joomla CMS
 . Here's a cheatsheet highlighting its most useful parameters:
 
 ```ruby
@@ -80,3 +80,24 @@ perl joomscan.pl -u <target_url>
 
 ### Output Options
 Generates reports in both text and HTML formats
+
+## Drupal (Droopescan)
+
+- Droopescan is a plugin-based scanner that helps identify security issues in various Content Management Systems, with a focus on Drupal.
+
+```ruby
+droopescan scan drupal -u <target_url>
+```
+
+## Key Parameters
+`-u`, --url <URL>: Specify the target Drupal URL to scan
+`-U`, --url-file <FILE>: Scan multiple URLs listed in a file
+`-e`, --enumerate <OPTION>: Specify scan type (p: plugins, t: themes, v: versions, i: interesting URLs)
+`--number <NUMBER>`: Set the number of requests to perform
+`--threads <NUMBER>`: Set the number of threads for scanning (default: 4)
+
+## Scan Types
+- `p`: Plugin checks
+- `t`: Theme checks
+- `v`: Version checks
+- `i`: Interesting URL checks
