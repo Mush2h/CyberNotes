@@ -52,3 +52,31 @@ wpscan --url https://example.com -U <user> -P <dicc> --api-token="token"
 
 https://the-bilal-rizwan.medium.com/wordpress-xmlrpc-php-common-vulnerabilites-how-to-exploit-them-d8d3c8600b32
 
+
+## Joomla (Joomscan)
+
+JoomScan is an open-source vulnerability scanner designed specifically for Joomla CMS
+. Here's a cheatsheet highlighting its most useful parameters:
+
+```ruby
+perl joomscan.pl -u <target_url>
+```
+### Key Parameters
+
+`-u`, --url <URL>: Specify the target Joomla URL/domain to scan
+`-ec`, --enumerate-components: Enumerate installed components
+`--cookie <String>`: Set a specific cookie for the scan
+`-a, --user-agent <User-Agent>`: Use a custom User-Agent
+`-r`, --random-agent: Use a random User-Agent
+`--timeout <Time-Out>`: Set the scan timeout
+`--proxy <proxy>:` Set a proxy for the scan (e.g., http://127.0.0.1:8080)
+
+### Advanced Features
+- Version enumeration: Detects the exact Joomla version
+- Vulnerability scanning: Checks for known vulnerabilities based on version
+- Component analysis: Scans for vulnerabilities in installed components
+- Firewall detection: Identifies common Joomla-based web application firewalls
+- Common file discovery: Locates log and backup files
+
+### Output Options
+Generates reports in both text and HTML formats
