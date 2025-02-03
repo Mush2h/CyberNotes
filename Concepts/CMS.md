@@ -128,21 +128,20 @@ magescan.phar scan <url>
 - `--output=<file>`: Save output to a file
 
 ### Example Commands
-Full scan:
+- Full scan:
     ```ruby
     magescan.phar scan http://example.com
     ```
-Check Magento version:
+- Check Magento version:
     ```ruby
     magescan.phar scan:version http://example.com
     ```
-
-Detect installed modules:
+- Detect installed modules:
     ```ruby
     magescan.phar scan:modules http://example.com
     ```
 
-Save scan results to a JSON file:
+- Save scan results to a JSON file:
     ```ruby
     magescan.phar scan http://example.com --format=json --output=results.json
     ```
