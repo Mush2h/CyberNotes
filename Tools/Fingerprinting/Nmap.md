@@ -148,7 +148,7 @@ nmap -sS -sU -sV -sC --script all <ip>
 ### Vulnerability and Authentication Scripts
 
 ```bash
-nmap --script=vuln --script=auth -v --min-rate 9000 192.168.37.136
+nmap --script=vuln --script=auth -v --min-rate 5000 192.168.37.136
 ```
 ### Firewall Bypass Script
 
