@@ -6,7 +6,7 @@ import requests
 
 # Manejo de señal para Ctrl+C
 def def_handler(sig, frame):
-    print("\n\n [!] Exiting...")
+    print("\n\n [!] Saliendo...")
     sys.exit(1)
 
 signal.signal(signal.SIGINT, def_handler)
