@@ -145,7 +145,3 @@ magescan.phar scan <url>
     ```ruby
     magescan.phar scan http://example.com --format=json --output=results.json
     ```
-
-
-
-
