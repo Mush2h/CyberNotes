@@ -1,52 +1,57 @@
 # CMS
 
-## Wordpress (Wpscan)
 
-- In this content management system, it's WPScan. WPScan is an open-source tool used to scan websites for security vulnerabilities in WordPress.
+## Wordpress (WPScan)
 
-- With WPScan, we can perform a complete enumeration of the website and obtain detailed information about the WordPress installation, such as the version used, installed plugins and themes, and registered users on the site. It also allows us to perform brute force tests to discover weak passwords and known vulnerabilities in plugins and themes.
+- En este sistema de gestión de contenidos, usamos WPScan. WPScan es una herramienta de código abierto utilizada para escanear sitios web en busca de vulnerabilidades de seguridad en WordPress.
 
-- WPScan is a very useful tool for website administrators who want to improve the security of their WordPress site, as it allows them to identify and correct vulnerabilities before they are exploited by malicious attackers. Additionally, it is an easy-to-use and highly effective tool for identifying potential security weaknesses on our website.
+- Con WPScan, podemos realizar una enumeración completa del sitio web y obtener información detallada sobre la instalación de WordPress, como la versión utilizada, plugins y temas instalados,  usuarios registrados en el sitio. También permite realizar pruebas de fuerza bruta para descubrir contraseñas débiles y vulnerabilidades conocidas en plugins y temas.
 
-The use of this tool is quite simple. The basic syntax is as follows:
+El uso de esta herramienta es bastante simple. La sintaxis básica es la siguiente:
+
+```bash
+wpscan --url https://example.com
+
 
 ```ruby
 wpscan --url https://example.com
 ```
 
-If you want to enumerate users or vulnerable plugins in WordPress using the wpscan tool, you can add the following parameters to the command line:
+Para enumerar usuarios o plugins vulnerables en WordPress utilizando WPScan, puedes añadir los siguientes parámetros:
 
 ```ruby
 wpscan --url https://example.com --enumerate u
 ```
 
-In case you want to enumerate existing plugins that are vulnerable, you can add the following parameter to the command line:
+Para enumerar plugins existentes que son vulnerables:
 
 ```ruby
 wpscan --url https://example.com --enumerate vp
 ```
 
-### Advance Attack
+### Ataques avanzados
 
 ```ruby
 wpscan --url https://example.com -e vp --api-token="token"
 
 ```
 
-Filter plugins
+Filtrar plugins
 ```ruby
 curl -s -X GET "https://example.com" | grep -oP 'plugins/\K[^/]+' | sort -u
 ```
+
+Fuerza bruta con usuario y diccionario:
 
 ```ruby
 wpscan --url https://example.com -U <user> -P <dicc> --api-token="token"
 ```
 
-- Additionally, another resource we consider is the xmlrpc.php file. This file is a WordPress feature that allows communication between the website and external applications using the XML-RPC protocol.
+Además, otro recurso a tener en cuenta es el archivo `xmlrpc.php`. Este archivo es una funcionalidad de WordPress que permite la comunicación entre el sitio web y aplicaciones externas mediante el protocolo XML-RPC.
 
-- The xmlrpc.php file is used by many WordPress plugins and mobile applications to interact with the website and perform various tasks, such as publishing content, updating the site, and obtaining information.
+El archivo `xmlrpc.php` es utilizado por muchos plugins y aplicaciones móviles de WordPress para interactuar con el sitio y realizar varias tareas como publicar contenido, actualizar el sitio y obtener información.
 
-- However, this file can also be abused by malicious attackers to apply brute force and discover valid credentials of site users. This is because xmlrpc.php allows attackers to make an unlimited number of login requests without being blocked, making the execution of a brute force attack relatively simple.
+Sin embargo, también puede ser abusado por atacantes para realizar ataques de fuerza bruta y descubrir credenciales válidas de usuarios del sitio, ya que permite realizar un número ilimitado de solicitudes de inicio de sesión sin ser bloqueado.
 
 ### Link xmlrpc.php
 
@@ -55,8 +60,7 @@ https://the-bilal-rizwan.medium.com/wordpress-xmlrpc-php-common-vulnerabilites-h
 
 ## Joomla (Joomscan)
 
-- JoomScan is an open-source vulnerability scanner designed specifically for Joomla CMS
-. Here's a cheatsheet highlighting its most useful parameters:
+JoomScan es un escáner de vulnerabilidades de código abierto diseñado específicamente para el CMS Joomla. Aquí tienes una chuleta con sus parámetros más útiles:
 
 ```ruby
 perl joomscan.pl -u <target_url>
