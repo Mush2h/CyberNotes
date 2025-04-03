@@ -1,131 +1,169 @@
-# Common Services
+# Servicios Comunes
 
-## FTP Service (Port 21)
-FTP is a widely used protocol for file transfer over networks. FTP service enumeration involves gathering relevant information such as FTP server version, file permission configurations, users, and passwords (through brute force attacks or guessing), among others.
+## Servicio FTP (Puerto 21)
+FTP es un protocolo ampliamente utilizado para la transferencia de archivos a través de redes. La enumeración del servicio FTP implica recopilar información relevante como la versión del servidor FTP, configuraciones de permisos de archivos, usuarios y contraseñas (mediante ataques de fuerza bruta o adivinación), entre otros.
 
-To connect:
+Para conectar:
 
-```shell 
- ftp <Ip>
+```shell
+ftp <IP>
 ```
 
-### Default User
+### Usuario por defecto
 
 ```ruby
 anonymous:<none>
 ```
 
-### FTP Enumeration 
+### Enumeración de FTP
 
 ```ruby
 nmap -p 21 --script=ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221 <IP>
 ```
 
+## Servicio SSH (Puerto 22)
 
+- SSH es un protocolo de administración remota que permite a los usuarios controlar y modificar sus servidores remotos a través de Internet mediante un mecanismo de autenticación seguro. Como una alternativa más segura al protocolo Telnet, que transmite información en texto plano, SSH utiliza técnicas criptográficas para garantizar que todas las comunicaciones hacia y desde el servidor remoto estén cifradas.
 
-## SSH Service(Port 22)
+- SSH proporciona un mecanismo para autenticar a un usuario remoto, transferir entradas del cliente al host y retransmitir la salida de vuelta al cliente. Esto es particularmente útil para gestionar sistemas remotos de forma segura y eficiente sin necesidad de estar físicamente presente en el sitio.
 
-- SSH is a remote administration protocol that allows users to control and modify their remote servers over the Internet through a secure authentication mechanism. As a more secure alternative to the Telnet protocol, which transmits information in plain text, SSH uses cryptographic techniques to ensure that all communications to and from the remote server are encrypted.
+- Es importante destacar que a través de la versión de SSH, también podemos identificar el nombre en clave de la distribución que se ejecuta en el sistema.
 
-- SSH provides a mechanism to authenticate a remote user, transfer inputs from the client to the host, and relay the output back to the client. This is particularly useful for securely and efficiently managing remote systems without having to be physically present at the site.
-It's worth noting that through the SSH version, we can also identify the codename of the distribution running on the system.
+- Por ejemplo, si la versión del servidor SSH es "OpenSSH 8.2p1 Ubuntu 4ubuntu0.5", podemos determinar que el sistema está ejecutando una distribución de Ubuntu. El número de versión "4ubuntu0.5" se refiere a la revisión específica del paquete SSH en esa distribución de Ubuntu. A partir de esto, podemos identificar el nombre en clave de la distribución de Ubuntu, que en este caso sería "Focal" para Ubuntu 20.04.
 
-- For example, if the SSH server version is "OpenSSH 8.2p1 Ubuntu 4ubuntu0.5", we can determine that the system is running an Ubuntu distribution. The version number "4ubuntu0.5" refers to the specific revision of the SSH package in that Ubuntu distribution. From this, we can identify the codename of the Ubuntu distribution, which in this case would be "Focal" for Ubuntu 20.04.
+Para conectar:
 
-To connect:
-
-```shell 
- ssh user@ip -p port
+```shell
+ssh usuario@ip -p puerto
 ```
 
-### SSH Enumeration 
+### Enumeración de SSH
 
 ```ruby
 nmap -p 22 --script=ssh2-enum-algos,ssh-hostkey,ssh-auth-methods <IP>
 ```
 
-## HTTP y HTTPS Service ( Port 80 / Port 443)
+## Servicios HTTP y HTTPS (Puerto 80 / Puerto 443)
 
-- HTTP (Hypertext Transfer Protocol) is a communication protocol used for data transfer on the World Wide Web. It is used for transferring text content, images, videos, hyperlinks, etc. The default port for HTTP is port 80.
+- HTTP (Protocolo de Transferencia de Hipertexto) es un protocolo de comunicación utilizado para la transferencia de datos en la World Wide Web. Se utiliza para transferir contenido de texto, imágenes, videos, hipervínculos, etc. El puerto predeterminado para HTTP es el puerto 80.
 
-- HTTPS (Hypertext Transfer Protocol Secure) is a secure version of HTTP that uses SSL/TLS to encrypt communication between the client and server. It uses port 443 by default. The main difference between HTTP and HTTPS is that HTTPS uses an additional security layer to encrypt data, making it more secure for transfer.
+- HTTPS (Protocolo de Transferencia de Hipertexto Seguro) es una versión segura de HTTP que utiliza SSL/TLS para cifrar la comunicación entre el cliente y el servidor. Utiliza el puerto 443 por defecto. La principal diferencia entre HTTP y HTTPS es que HTTPS utiliza una capa de seguridad adicional para cifrar los datos, haciéndolos más seguros para la transferencia.
 
-
-### HTTP/HTTPS Enumeration
+### Enumeración de HTTP/HTTPS
 
 ```ruby
 nmap -p 80,443 --script=http-enum,http-headers,http-methods,http-webdav-scan <IP>
 gobuster dir -u http://<IP> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-
 ```
 
+## Servicio SMB (Puerto 445)
 
-## SMB Service ( Port 445)
-`
-SMB (Server Message Block) is a network file sharing protocol that allows applications on a computer to read and write to files and to request services from server programs in a computer network. It's commonly used for providing shared access to files, printers, and serial ports between nodes on a network.
+SMB (Server Message Block) es un protocolo de intercambio de archivos en red que permite a las aplicaciones en una computadora leer y escribir archivos y solicitar servicios de programas de servidor en una red. Se utiliza comúnmente para proporcionar acceso compartido a archivos, impresoras y puertos serie entre nodos en una red.
 
-To list available shares:
+Para listar recursos compartidos disponibles:
+
 ```ruby
-smbclient -L 127.0.0.1 -N 
+smbclient -L 127.0.0.1 -N
 ```
 
-To connect to a specific share:
+Para conectar a un recurso compartido específico:
 
 ```ruby
 smbclient //127.0.0.1/myshare -N
 ```
 
-### Advanced Options
-- `-L`: List active resources
-- `-N`: Enable a null session
-- `-U`, `--user=USERNAME`: Specify the username for authentication
+### Opciones avanzadas
+
+- `-L`: Lista recursos activos
+- `-N`: Habilita una sesión nula
+- `-U`, `--user=USERNAME`: Especifica el nombre de usuario para la autenticación
 ```ruby
 smbclient -L //192.168.1.100 -U test
 ```
-- `-W`, --workgroup=WORKGROUP: Set the workgroup name
+- `-W`, --workgroup=WORKGROUP: Establece el nombre del grupo de trabajo
 ```ruby
 smbclient -L //192.168.1.100 -W PENTESTDOMAIN
 ```
-- `-p`, --port=PORT: Connect to a specific port
+- `-p`, --port=PORT: Conecta a un puerto específico
 ```ruby
 smbclient -L //192.168.1.100 -p 4455
 ```
-- `-m`, --max-protocol=MAXPROTOCOL: Set max protocol level
+- `-m`, --max-protocol=MAXPROTOCOL: Establece el nivel máximo de protocolo
 ```ruby
 smbclient -L //192.168.1.100 -m SMB3
 ```
-- `-c` 'COMMAND': Execute a single command
+- `-c` 'COMMAND': Ejecuta un solo comando
 ```ruby
 smbclient //192.168.1.100/share -c 'ls'
 ```
-- get FILENAME: Download a file
+- Descargar un archivo
 ```ruby
 smbclient //192.168.1.100/share -c 'get secret.txt'
 ```
-- put FILENAME: Upload a file
+- Subir un archivo
 ```ruby
 smbclient //192.168.1.100/share -c 'put local_file.txt'
 ```
 
-### SMB Enumeration 
+### Enumeración de SMB
 
 ```ruby
 enum4linux -a <IP>
 nmap -p 445 --script=smb-enum-shares,smb-enum-users <IP>
 ```
 
-### Tool Smabmap 
+### Herramienta SMBMap
 
-SMBMap is a powerful tool designed for enumerating and interacting with SMB (Server Message Block) shares across networks. It allows users to list share drives, examine drive permissions, view share contents, and even execute remote commands on target systems
+SMBMap es una herramienta poderosa diseñada para enumerar e interactuar con recursos compartidos SMB en redes. Permite listar unidades compartidas, examinar permisos de unidades, ver contenidos compartidos e incluso ejecutar comandos remotos en sistemas objetivo.
 
 ```ruby
 smbmap -H 127.0.0.1
 ```
-#### Advanced Options
 
-- `-H`: This parameter is used to specify the IP address or hostname of the SMB server to which you want to connect.
-- `-P`: This parameter is used to specify the TCP port used for the SMB connection. The default port for SMB is 445, but if the SMB server is configured to use a different port, this parameter should be used to specify the correct port.
-- `-u`: This parameter is used to specify the username for the SMB connection.
-- `-p`: This parameter is used to specify the password for the SMB connection.
-- `-d`: This parameter is used to specify the domain to which the user being used for the SMB connection belongs.
-- `-s`: This parameter is used to specify the specific shared resource you want to enumerate. If not specified, smbmap will attempt to enumerate all shared resources on the SMB server.
+#### Opciones avanzadas
+
+- `-H`: Especifica la dirección IP o el nombre del host del servidor SMB.
+- `-P`: Especifica el puerto TCP para la conexión SMB.
+- `-u`: Especifica el nombre de usuario para la conexión SMB.
+- `-p`: Especifica la contraseña para la conexión SMB.
+- `-d`: Especifica el dominio al que pertenece el usuario.
+- `-s`: Especifica el recurso compartido específico que deseas enumerar.
+
+---
+
+## Servicio DNS (Puerto 53)
+
+DNS (Domain Name System) traduce nombres de dominio legibles por humanos a direcciones IP. Es un servicio crítico para la navegación en Internet.
+
+### Enumeración de DNS
+
+```ruby
+nmap -p 53 --script=dns-brute,dns-cache-snoop,dns-recursion <IP>
+dig @<IP> <domain> ANY
+```
+
+---
+
+## Servicio RDP (Puerto 3389)
+
+RDP (Remote Desktop Protocol) permite el acceso remoto a escritorios de Windows.
+
+### Enumeración de RDP
+
+```ruby
+nmap -p 3389 --script=rdp-enum-encryption <IP>
+xfreerdp /u:usuario /p:contraseña /v:<IP>
+```
+
+---
+
+## Servicio MySQL (Puerto 3306)
+
+MySQL es un sistema de gestión de bases de datos relacional.
+
+### Enumeración de MySQL
+
+```ruby
+nmap -p 3306 --script=mysql-enum,mysql-databases,mysql-users <IP>
+mysql -h <IP> -u root -p
+```
