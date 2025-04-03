@@ -21,9 +21,9 @@ magescan.phar scan <url>
 
 ### Opciones de salida
 - `--format=<format>`: Define el formato de salida. Opciones disponibles:
-  - `text`: Salida legible para humanos.
-  - `json`: Salida estructurada en JSON.
-  - `xml`: Salida estructurada en XML.
+- `text`: Salida legible para humanos.
+- `json`: Salida estructurada en JSON.
+- `xml`: Salida estructurada en XML.
 - `--output=<file>`: Guarda el resultado en un archivo especificado.
 
 ### Comandos de ejemplo

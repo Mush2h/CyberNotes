@@ -8,13 +8,13 @@ perl joomscan.pl -u <url>
 
 ### Parametros importantes
 
-`-u`, --url <URL>: Especifica la URL o dominio del sitio Joomla objetivo
-`-ec`, --enumerate-components: Enumera los componentes instalados
-`--cookie <String>`: Establece una cookie específica para la sesión de escaneo
-`-a, --user-agent <User-Agent>`: Usa un User-Agent personalizado
-`-r`, --random-agent: Usa un User-Agent aleatorio por cada petición
-`--timeout <Time-Out>`: Establece el tiempo máximo de espera por respuesta
-`--proxy <proxy>:` Usa un proxy (por ejemplo, http://127.0.0.1:8080)
+- `-u`, --url <URL>: Especifica la URL o dominio del sitio Joomla objetivo
+- `-ec`, --enumerate-components: Enumera los componentes instalados
+- `--cookie <String>`: Establece una cookie específica para la sesión de escaneo
+- `-a, --user-agent <User-Agent>`: Usa un User-Agent personalizado
+- `-r`, --random-agent: Usa un User-Agent aleatorio por cada petición
+- `--timeout <Time-Out>`: Establece el tiempo máximo de espera por respuesta
+- `--proxy <proxy>:` Usa un proxy (por ejemplo, http://127.0.0.1:8080)
 
 ### Funcionalidades avanzadas
 - Enumeración de versión: Detecta la versión exacta de Joomla instalada.
