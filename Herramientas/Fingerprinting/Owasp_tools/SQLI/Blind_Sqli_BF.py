@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# Este programa realiza un ataque de inyección SQL ciega (Blind SQL Injection) para extraer información
+# de una base de datos. Utiliza fuerza bruta para descubrir los caracteres de un nombre de usuario
+# almacenado en la base de datos objetivo. Además, verifica e instala automáticamente las bibliotecas
+# necesarias antes de ejecutar el ataque.
+
 # Importa las bibliotecas necesarias
 import sys
 import signal
