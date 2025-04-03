@@ -6,12 +6,12 @@
 droopescan scan drupal -u <target_url>
 ```
 
-## Key Parameters
-`-u`, --url <URL>: Especifica la URL del sitio Drupal a escanearn
-`-U`, --url-file <FILE>: Escanea múltiples URLs desde un archivo
-`-e`, --enumerate <OPTION>: Define el tipo de escaneo (p: plugins, t: temas, v: versiones, i: URLs interesantes)
-`--number <NUMBER>`: Establece el número de peticiones a realizar
-`--threads <NUMBER>`: Número de hilos para el escaneo (por defecto: 4)
+## Paremtros interesantes
+- `-u`, --url <URL>: Especifica la URL del sitio Drupal a escanear
+- `-U`, --url-file <FILE>: Escanea múltiples URLs desde un archivo
+- `-e`, --enumerate <OPTION>: Define el tipo de escaneo (p: plugins, t: temas, v: versiones, i: URLs interesantes)
+- `--number <NUMBER>`: Establece el número de peticiones a realizar
+- `--threads <NUMBER>`: Número de hilos para el escaneo (por defecto: 4)
 
 ## Scan Types
 - `p`: Plugin 
