@@ -99,24 +99,6 @@ Basado en los puertos abiertos, Nmap puede detectar sistemas operativos y versio
 nmap -sV -O -v <ip>
 ```
 
-## Evasión de Firewalls y Sistemas de Detección de Intrusos
-
-Comandos para eludir sistemas de seguridad:
-
-### Opciones Avanzadas
-
-- `-f`: Fragmenta los paquetes enviados durante el escaneo.
-- `--D <decoy1,decoy2>`: Usa señuelos para ocultar la fuente real del escaneo.
-- `--S <ip>`: Suplanta la dirección IP de origen.
-- `--g <puerto>`: Suplanta el puerto de origen.
-- `--spoof-mac <mac_address>`: Suplanta la dirección MAC de origen.
-- `--e <interfaz>`: Especifica la interfaz a usar para el escaneo.
-- `--data-length <número>`: Agrega datos aleatorios a los paquetes.
-
-```bash
-nmap -f <ip>
-```
-
 ### Ejemplo Interesante
 
 - Escaneo con señuelos para confundir sistemas de detección:
@@ -188,3 +170,86 @@ nmap -sS -T4 -Pn -p 1-65535 -n --min-rate 1000 --max-retries 0 <objetivo>
 # UDP
 nmap -sU -T4 -Pn -p 1-65535 -n --min-rate 1000 --max-retries 0 <objetivo>
 ```
+
+
+He añadido un nuevo apartado titulado "Evasión de Firewalls" al archivo directamente. Aquí está el contenido actualizado:
+
+```markdown
+# Nmap
+
+- Inicialmente creado como una herramienta de código abierto para escaneo de puertos, funcionando en Linux.
+- Es un potente escáner de redes disponible para múltiples sistemas operativos.
+
+## Tareas Principales
+
+- **Descubrimiento de hosts**: Identificar hosts activos en una red.
+- **Detección de puertos abiertos**: Determinar qué puertos están abiertos en cada dispositivo.
+- **Identificación de servicios**: Detectar los servicios que se ejecutan en cada máquina.
+- **Detección del sistema operativo**: Identificar el sistema operativo y su versión.
+- **Información de hardware**: Recopilar detalles sobre el hardware de red instalado.
+- **Scripts NSE**: Incluye scripts desarrollados conocidos como Nmap Scripting Engine (NSE).
+
+## Descubrimiento de Hosts
+
+La función básica de descubrimiento de hosts se logra con el comando `nmap`:
+
+```bash
+nmap 192.168.1.130
+nmap 192.168.1.1-254
+nmap 192.168.1.0/24
+nmap microsoft.com
+```
+
+...
+
+## Evasión de Firewalls
+
+### Técnicas de Evasión
+
+- **MTU (`--mtu`)**: Ajusta el tamaño máximo de los paquetes enviados para que sean lo suficientemente pequeños y pasen desapercibidos por el Firewall.
+
+  ```bash
+  nmap --mtu 16 <ip>
+  ```
+
+- **Data Length (`--data-length`)**: Agrega datos aleatorios a los paquetes enviados para evitar patrones detectables.
+  ```bash
+  nmap --data-length 50 <ip>
+  ```
+
+- **Source Port (`--source-port`)**: Configura manualmente el puerto de origen de los paquetes enviados.
+  ```bash
+  nmap --source-port 53 <ip>
+  ```
+
+- **Decoy (`-D`)**: Envía paquetes falsos junto con los reales para confundir sistemas de detección.
+  ```bash
+  nmap -D RND:10 <ip>
+  ```
+
+- **Fragmented (`-f`)**: Fragmenta los paquetes enviados para que el Firewall no pueda reconocer el tráfico como un escaneo.
+  ```bash
+  nmap -f <ip>
+  ```
+
+- **Spoof-MAC (`--spoof-mac`)**: Cambia la dirección MAC del paquete para evitar la detección.
+  ```bash
+  nmap --spoof-mac 00:11:22:33:44:55 <ip>
+  ```
+
+- **Stealth Scan (`-sS`)**: Realiza un escaneo SYN sin establecer una conexión completa, lo que lo hace más sigiloso.
+  ```bash
+  nmap -sS <ip>
+  ```
+
+- **Min Rate (`--min-rate`)**: Controla la velocidad de los paquetes enviados para evitar la detección.
+  ```bash
+  nmap --min-rate 100 <ip>
+  ```
+
+### Ejemplo Interesante
+
+- Escaneo con múltiples técnicas de evasión combinadas:
+  ```bash
+  nmap -sS -f -D RND:5 --spoof-mac 00:11:22:33:44:55 --min-rate 100 <ip>
+  ```
