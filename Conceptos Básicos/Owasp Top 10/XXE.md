@@ -138,4 +138,4 @@ Este ejemplo utiliza XXE para realizar un escaneo de puertos internos:
 
 
 
-Para practicar esta vulnerabilidad, puedes consultar el laboratorio correspondiente en el siguiente enlace: [Laboratorio de XXE](#).
+Para practicar esta vulnerabilidad, puedes consultar el laboratorio correspondiente en el siguiente enlace: [Laboratorio de XXE](https://github.com/jbarone/xxelab).
