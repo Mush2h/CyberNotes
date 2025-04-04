@@ -141,13 +141,40 @@ nmap -p- -sS 192.168.37.136 --min-rate 9000 -oX resultado_nmap.xml
 
 ## Ejecución de Scripts
 
-Los scripts NSE permiten capacidades avanzadas de escaneo:
+He revisado el archivo y he identificado que la información sobre los scripts y categorías de Nmap encaja perfectamente en la sección **"Ejecución de Scripts"**. He añadido la información proporcionada directamente en esa sección. Aquí está el contenido actualizado:
+
+
+## Ejecución de Scripts
+
+Los scripts NSE permiten capacidades avanzadas de escaneo. Nmap incluye una amplia variedad de scripts que automatizan tareas de reconocimiento y descubrimiento en la red, además de obtener información valiosa sobre los sistemas y servicios que se están ejecutando en ellos.
 
 ### Parámetros
 
 - `--sC`: Ejecuta scripts predeterminados durante el escaneo.
 - `--script <nombre_script>`: Ejecuta scripts específicos proporcionados por la biblioteca NSE de Nmap.
 - `--script-trace`: Muestra los intercambios de entrada/salida durante la ejecución del script.
+
+```bash
+nmap -p 21 --script ftp-brute <ip>
+```
+
+### Categorías de Scripts
+
+Nmap organiza sus scripts en diferentes categorías, cada una diseñada para realizar tareas específicas. Algunas de las categorías más comunes incluyen:
+
+- **default**: Esta es la categoría predeterminada en Nmap, que incluye una gran cantidad de scripts de reconocimiento básicos y útiles para la mayoría de los escaneos.
+- **discovery**: Se enfoca en descubrir información sobre la red, como la detección de hosts y dispositivos activos, y la resolución de nombres de dominio.
+- **safe**: Incluye scripts considerados seguros que no realizan actividades invasivas que puedan desencadenar una alerta de seguridad en la red.
+- **intrusive**: Contiene scripts más invasivos que pueden ser detectados fácilmente por sistemas de detección de intrusos o Firewalls, pero que proporcionan información valiosa sobre vulnerabilidades.
+- **vuln**: Se enfoca específicamente en la detección de vulnerabilidades y debilidades en los sistemas y servicios que se están ejecutando en la red.
+
+### Ejemplo Interesante
+
+- Escaneo de vulnerabilidades utilizando la categoría `vuln`:
+
+```bash
+nmap --script vuln <ip>
+```
 
 ```bash
 nmap -p 21 --script ftp-brute <ip>
@@ -171,36 +198,6 @@ nmap -sS -T4 -Pn -p 1-65535 -n --min-rate 1000 --max-retries 0 <objetivo>
 nmap -sU -T4 -Pn -p 1-65535 -n --min-rate 1000 --max-retries 0 <objetivo>
 ```
 
-
-He añadido un nuevo apartado titulado "Evasión de Firewalls" al archivo directamente. Aquí está el contenido actualizado:
-
-```markdown
-# Nmap
-
-- Inicialmente creado como una herramienta de código abierto para escaneo de puertos, funcionando en Linux.
-- Es un potente escáner de redes disponible para múltiples sistemas operativos.
-
-## Tareas Principales
-
-- **Descubrimiento de hosts**: Identificar hosts activos en una red.
-- **Detección de puertos abiertos**: Determinar qué puertos están abiertos en cada dispositivo.
-- **Identificación de servicios**: Detectar los servicios que se ejecutan en cada máquina.
-- **Detección del sistema operativo**: Identificar el sistema operativo y su versión.
-- **Información de hardware**: Recopilar detalles sobre el hardware de red instalado.
-- **Scripts NSE**: Incluye scripts desarrollados conocidos como Nmap Scripting Engine (NSE).
-
-## Descubrimiento de Hosts
-
-La función básica de descubrimiento de hosts se logra con el comando `nmap`:
-
-```bash
-nmap 192.168.1.130
-nmap 192.168.1.1-254
-nmap 192.168.1.0/24
-nmap microsoft.com
-```
-
-...
 
 ## Evasión de Firewalls
 
