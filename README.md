@@ -14,9 +14,3 @@ Este repositorio contiene una colección de notas sobre ciberseguridad creadas u
 ## Contenido
 
 Las notas están organizadas en diferentes carpetas según los temas y subtemas. Cada nota está escrita en formato Markdown, lo que permite una fácil lectura y edición.
-
-## Cómo Usar Estas Notas
-
-### Visualización en Línea
-
-Puedes explorar las notas directamente en GitHub. Simplemente navega por las carpetas y haz clic en los archivos `.md` para ver su contenido.
