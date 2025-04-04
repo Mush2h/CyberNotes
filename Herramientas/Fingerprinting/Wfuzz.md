@@ -25,6 +25,26 @@ wfuzz -c -z file,/ruta/a/wordlist.txt --hc 404 http://example.com/FUZZ
 - `--hc 404`: Oculta las respuestas con código 404.
 - `FUZZ`: Marcador que será reemplazado por las palabras del diccionario.
 
+
+### Ejemplo con Dominio `test.com`
+
+Para realizar un escaneo básico en el dominio `test.com`:
+
+```bash
+wfuzz -c -z file,/ruta/a/wordlist.txt --hc 404 http://test.com/FUZZ
+```
+
+### Escaneo con Hilos
+
+Para acelerar el proceso utilizando múltiples hilos:
+
+```bash
+wfuzz -c -z file,/ruta/a/wordlist.txt --hc 404 -t 50 http://example.com/FUZZ
+```
+
+- `-t 50`: Especifica el número de hilos a utilizar.
+
+
 ### Fuerza Bruta de Archivos
 
 Para encontrar archivos específicos:
