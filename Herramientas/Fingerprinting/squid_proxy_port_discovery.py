@@ -1,3 +1,10 @@
+"""
+Este script realiza un descubrimiento de puertos comunes en un servidor utilizando un proxy Squid.
+Se conecta a una lista de puertos TCP comunes en la dirección configurada (main_url) y verifica si están abiertos.
+El script utiliza una sesión de requests para realizar las solicitudes HTTP a través del proxy configurado.
+Incluye manejo de excepciones para errores de conexión, tiempo de espera y otros problemas relacionados con las solicitudes.
+"""
+
 #!/usr/bin/python3
 
 import sys

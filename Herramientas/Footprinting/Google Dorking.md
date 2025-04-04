@@ -1,53 +1,73 @@
-# Google Hacking (Google Dorking)
+# Hacking con Google (Google Dorking)
 
-Google hacking, also known as **Google Dorking**, is a technique that leverages advanced Google search operators to uncover specific information on the internet. It is often used by attackers to identify security vulnerabilities, gather sensitive information, or locate misconfigured systems and applications.
+El hacking con Google, también conocido como **Google Dorking**, es una técnica que utiliza operadores avanzados de búsqueda de Google para descubrir información específica en internet. A menudo es utilizado por profesionales de seguridad para identificar vulnerabilidades, recopilar información sensible o localizar sistemas y aplicaciones mal configurados.
 
 ---
 
-## Summary Table of Operators
+## Tabla Resumen de Operadores
 
-| Operator      | Description                                                                                     |
+| Operador      | Descripción                                                                                     |
 |---------------|-------------------------------------------------------------------------------------------------|
-| `OR`          | Searches for results where at least one of multiple terms appears.                              |
-| `-`           | Excludes results containing the term following the symbol.                                      |
-| `" "`         | Searches for an exact match of the text within the quotation marks.                             |
-| `*`           | Acts as a wildcard to replace any word or phrase in a search query.                             |
-| `site:`       | Limits the search to a specific domain or website.                                              |
-| `related:`    | Finds websites similar to the specified domain.                                                 |
-| `link:`       | Finds pages that link to the specified domain.                                                  |
-| `cache:`      | Displays the cached version of a webpage as indexed by Google.                                  |
-| `filetype:`   | Searches for files with a specific extension (e.g., PDF, DOC, SQL).                             |
-| `inurl:`      | Searches for pages where the specified term appears in the URL.                                 |
-| `intext:`     | Searches for pages where the specified term appears in the body text.                           |
-| `intitle:`    | Searches for pages where the specified term appears in the title.                               |
-| `inanchor:`   | Searches for pages where the specified term appears in hyperlink anchor text.                   |
+| `OR`          | Busca resultados donde aparece al menos uno de varios términos.                                 |
+| `-`           | Excluye resultados que contengan el término que sigue al símbolo.                               |
+| `" "`         | Busca una coincidencia exacta del texto dentro de las comillas.                                 |
+| `*`           | Actúa como un comodín para reemplazar cualquier palabra o frase en una consulta.                |
+| `site:`       | Limita la búsqueda a un dominio o sitio web específico.                                         |
+| `related:`    | Encuentra sitios web similares al dominio especificado.                                         |
+| `link:`       | Encuentra páginas que enlazan al dominio especificado.                                          |
+| `cache:`      | Muestra la versión en caché de una página web indexada por Google.                              |
+| `filetype:`   | Busca archivos con una extensión específica (por ejemplo, PDF, DOC, SQL).                       |
+| `inurl:`      | Busca páginas donde el término especificado aparece en la URL.                                  |
+| `intext:`     | Busca páginas donde el término especificado aparece en el texto del cuerpo.                     |
+| `intitle:`    | Busca páginas donde el término especificado aparece en el título.                               |
+| `inanchor:`   | Busca páginas donde el término especificado aparece en el texto de anclaje de un hipervínculo.  |
 
 ---
 
-## Examples
+## Ejemplos
 
-### Basic Examples
+### Ejemplos Básicos
 
-- **Search within a site and body text**:
+- **Buscar dentro de un sitio y en el texto del cuerpo**:
 `site:youtube.com intext:"Apple"`
 
-- **Search for specific terms in URLs**:
+- **Buscar términos específicos en URLs**:
 `inurl:pepe.com`
 
-- **Search for PDFs related to cybersecurity**:
+- **Buscar PDFs relacionados con ciberseguridad**:
 `filetype:pdf ciberseguridad`
 
-- **Search for Python files**:
+- **Buscar archivos Python**:
 `ext:py`
 
-- **Wildcard search in titles**:
+- **Búsqueda con comodines en títulos**:
 `intitle:ciber *`
 
-### Advanced Example (Pro)
+### Ejemplos Avanzados (Pro)
 
-- **Search for PHP files containing sensitive information**:
-
+- **Buscar archivos PHP que contengan información sensible**:
 `ext:php intext:"root:x:0:0:root:/root:/bin/bash"`
+
+- **Buscar cámaras de seguridad expuestas**:
+`inurl:"/view/index.shtml"`
+
+- **Buscar archivos de configuración de bases de datos**:
+`filetype:sql "password"`
+
+- **Buscar páginas de inicio de sesión de administradores**:
+`intitle:"admin login" inurl:admin`
+
+- **Buscar documentos confidenciales en servidores públicos**:
+`filetype:doc site:gov "confidencial"`
+
+- **Buscar directorios abiertos en servidores web**:
+`intitle:"index of" "parent directory"`
+
+- **Buscar información de contacto en sitios web específicos**:
+`site:example.com intext:"contacto"`
+
+- **Buscar archivos de respaldo expuestos**:
+`filetype:bak inurl:"backup"`
 
 
 

@@ -1,63 +1,125 @@
 # Recon-ng
 
-Recon-ng is a Python-based framework that offers users automated network reconnaissance and information gathering. Its interface is similar to Metasploit and relies on various modules for functionality. Some modules require an API key, but the website for obtaining these keys is currently down.
+Recon-ng es un framework basado en Python que ofrece a los usuarios herramientas automatizadas para el reconocimiento de redes y la recopilación de información. Su interfaz es similar a Metasploit y se basa en varios módulos para su funcionalidad. Algunos módulos requieren una clave API, pero actualmente el sitio web para obtener estas claves no está disponible.
 
-## Intallation
+## Instalación
 
-- Recon-ng comes pre-installed on Kali Linux. For other Linux distributions, you can install it using:
+- Recon-ng viene preinstalado en Kali Linux. Para otras distribuciones de Linux, puedes instalarlo usando:
 
 ```bash
 apt-get install recon-ng
 ```
 
-## Basic Usage
+## Uso Básico
 
-- To start Recon-ng:
+- Para iniciar Recon-ng:
 
 ```bash
 recon-ng 
 ```
-## Key Features
 
-### Workspaces:
+## Características Principales
 
-Recon-ng allows working with different workspaces:
-- List workspaces: `workspaces list`
-- Create workspace: `workspaces create [Name]`
-- Load workspace: `workspaces load [Name]`
-- Remove workspace: `workspaces remove [Name]`
+### Espacios de Trabajo:
 
-### Database Management:
+Recon-ng permite trabajar con diferentes espacios de trabajo:
+- Listar espacios de trabajo: `workspaces list`
+- Crear un espacio de trabajo: `workspaces create [Nombre]`
+- Cargar un espacio de trabajo: `workspaces load [Nombre]`
+- Eliminar un espacio de trabajo: `workspaces remove [Nombre]`
 
-- View database schema: `db schema`
-- Delete information: `db delete [information]`
-- Insert domain: `db insert domains`
+### Gestión de Base de Datos:
 
-### Viewing Stored Information:
+- Ver el esquema de la base de datos: `db schema`
+- Eliminar información: `db delete [información]`
+- Insertar un dominio: `db insert domains`
 
-`show [information type]`
+### Visualización de Información Almacenada:
 
-- Examples: show hosts, show domains, show credentials
+`show [tipo de información]`
 
+- Ejemplos: `show hosts`, `show domains`, `show credentials`
 
-### Snapshots:
-- Create snapshot: `snapshot take`
-- Remove snapshot: `snapshot remove [name]`
-- List snapshots: `snapshots list`
-- Load snapshot: `snapshot load [name]`
+### Instantáneas:
+- Crear una instantánea: `snapshot take`
+- Eliminar una instantánea: `snapshot remove [nombre]`
+- Listar instantáneas: `snapshots list`
+- Cargar una instantánea: `snapshot load [nombre]`
 
-### Modules:
-- List marketplace tools: marketplace search
-- Focused search: `marketplace search [keyword]`
-- Install module: `marketplace install [path]`
-- Install all modules: `marketplace install all`
-- Load module: `modules load [module]`
-- List module options: `options list`
-- Set module option: `options set [field] [value]`
-- Run module: `run`
-- Exit module: `back`
+### Módulos:
+- Listar herramientas del marketplace: `marketplace search`
+- Búsqueda específica: `marketplace search [palabra clave]`
+- Instalar un módulo: `marketplace install [ruta]`
+- Instalar todos los módulos: `marketplace install all`
+- Cargar un módulo: `modules load [módulo]`
+- Listar opciones del módulo: `options list`
+- Configurar una opción del módulo: `options set [campo] [valor]`
+- Ejecutar un módulo: `run`
+- Salir del módulo: `back`
 
-### API Keys
-- Add API key: keys add [api_name] [key]
-- List keys: keys list
-- Remove key: keys remove [api_name]
+### Claves API:
+- Agregar una clave API: `keys add [nombre_api] [clave]`
+- Listar claves: `keys list`
+- Eliminar una clave: `keys remove [nombre_api]`
+
+## Ejemplos Avanzados para Hacking Ético
+
+### Escaneo de Subdominios
+1. Cargar el módulo de subdominios:
+   ```bash
+   modules load recon/domains-hosts/subdomain_enum
+   ```
+2. Configurar el dominio objetivo:
+   ```bash
+   options set source [dominio.com]
+   ```
+3. Ejecutar el módulo:
+   ```bash
+   run
+   ```
+
+### Recolección de Direcciones de Correo Electrónico
+1. Cargar el módulo de correos electrónicos:
+   ```bash
+   modules load recon/contacts-contacts/email_hunter
+   ```
+2. Configurar el dominio objetivo:
+   ```bash
+   options set domain [dominio.com]
+   ```
+3. Ejecutar el módulo:
+   ```bash
+   run
+   ```
+
+### Generación de Informes
+1. Crear un informe en formato HTML:
+   ```bash
+   modules load reporting/html
+   ```
+2. Configurar el nombre del archivo de salida:
+   ```bash
+   options set filename [reporte.html]
+   ```
+3. Ejecutar el módulo:
+   ```bash
+   run
+   ```
+
+### Uso de Claves API para Módulos
+1. Agregar una clave API para Shodan:
+   ```bash
+   keys add shodan [tu_clave_api]
+   ```
+2. Cargar el módulo de Shodan:
+   ```bash
+   modules load recon/hosts-hosts/shodan_hostname
+   ```
+3. Configurar el objetivo:
+   ```bash
+   options set host [ip_o_dominio]
+   ```
+4. Ejecutar el módulo:
+   ```bash
+   run
+   ```

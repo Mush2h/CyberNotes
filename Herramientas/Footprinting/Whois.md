@@ -1,29 +1,58 @@
 # WHOIS
 
-WHOIS is a powerful protocol and tool for searching and retrieving information about registered domain names, IP addresses, and network resources.
+WHOIS es un protocolo y herramienta poderosa para buscar y recuperar información sobre nombres de dominio registrados, direcciones IP y recursos de red.
 
-## Key Features
+## Características Clave
 
-- Domain ownership lookup
-- Registration details discovery
-- Network resource information retrieval
+- Búsqueda de propiedad de dominios
+- Descubrimiento de detalles de registro
+- Recuperación de información sobre recursos de red
 
-## Information Typically Obtained
+## Información Típicamente Obtenida
 
-### Domain Details
-- Domain owner information
-- Registration dates
-- Expiration dates
-- DNS server details
-- Registrar information
-- Contact email addresses
-- Nameserver records
+### Detalles del Dominio
+- Información del propietario del dominio
+- Fechas de registro
+- Fechas de expiración
+- Detalles del servidor DNS
+- Información del registrador
+- Direcciones de correo electrónico de contacto
+- Registros de servidores de nombres
 
-## Basic Usage
+## Uso Básico
 
-### Command Syntax
+### Sintaxis del Comando
 
-```ruby
-kali@kali:~$ whois <domain>
+```bash
+kali@kali:~$ whois <dominio>
 kali@kali:~$ whois cocacola.com
 ```
+
+### Ejemplos Adicionales
+
+#### Obtener Información de un Dominio Específico
+```bash
+kali@kali:~$ whois microsoft.com
+```
+
+#### Consultar Información de una Dirección IP
+```bash
+kali@kali:~$ whois 8.8.8.8
+```
+
+
+#### Buscar Información de Contacto del Propietario
+```bash
+kali@kali:~$ whois example.com | grep -i "email"
+```
+
+#### Analizar un Dominio con Whois y Filtrar Resultados
+```bash
+kali@kali:~$ whois targetsite.com | grep -E "Domain Name|Registrar|Creation Date|Expiration Date"
+```
+
+#### Automatizar Consultas con un Script
+```bash
+kali@kali:~$ for domain in $(cat domains.txt); do whois $domain; done
+```
+

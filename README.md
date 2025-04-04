@@ -1,22 +1,22 @@
 # CyberNotes
 
-## Overview
+## Descripción General
 
-This repository contains a collection of cybersecurity notes created using Obsidian, a powerful knowledge management and note-taking application. These notes cover various aspects of cybersecurity and are being developed gradually. Topics include, but are not limited to:
+Este repositorio contiene una colección de notas sobre ciberseguridad creadas utilizando Obsidian, una potente aplicación para la gestión del conocimiento y la toma de notas. Estas notas cubren varios aspectos de la ciberseguridad y se están desarrollando de manera gradual. Los temas incluyen, pero no se limitan a:
 
-- Network Security
-- Web Application Security
-- Cryptography
-- Malware Analysis
-- Digital Forensics
-- Ethical Hacking Techniques
+- Seguridad de Redes
+- Seguridad de Aplicaciones Web
+- Criptografía
+- Análisis de Malware
+- Informática Forense
+- Técnicas de Hacking Ético
 
-## Contents
+## Contenido
 
-The notes are organized into different folders based on topics and subtopics. Each note is written in Markdown format, allowing for easy reading and editing.
+Las notas están organizadas en diferentes carpetas según los temas y subtemas. Cada nota está escrita en formato Markdown, lo que permite una fácil lectura y edición.
 
-## How to Use These Notes
+## Cómo Usar Estas Notas
 
-### Viewing Online
+### Visualización en Línea
 
-You can browse through the notes directly on GitHub. Simply navigate through the folders and click on the `.md` files to view their contents.
+Puedes explorar las notas directamente en GitHub. Simplemente navega por las carpetas y haz clic en los archivos `.md` para ver su contenido.

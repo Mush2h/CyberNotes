@@ -1,32 +1,72 @@
 # Shodan
 
-Shodan is a search engine designed to discover specific devices, with a particular focus on Internet of Things (IoT) devices. It collects information from various services and protocols including HTTP, SSH, FTP, and SNMP.
-:
-- **Note:** Registration is required to use Shodan's full features.
+Shodan es un motor de búsqueda diseñado para descubrir dispositivos específicos, con un enfoque particular en dispositivos del Internet de las Cosas (IoT). Recopila información de varios servicios y protocolos, incluidos HTTP, SSH, FTP y SNMP.
 
+- **Nota:** Es necesario registrarse para utilizar todas las funciones de Shodan.
 
-## Official Website
+## Sitio Web Oficial
 
 * https://www.shodan.io/
 
-## Search Filters
+## Filtros de Búsqueda
 
-Shodan offers several filters to refine searches:
-- `city`: Specifies the physical location (city) of the device.
+Shodan ofrece varios filtros para refinar las búsquedas:
+- `city`: Especifica la ubicación física (ciudad) del dispositivo.
 
-- `country`: Specifies the country where the device is physically located
-- `geo`: Allows specification of longitude and latitude coordinates of the device's physical location. An optional third parameter can indicate the radius in kilometers from the specified point
+- `country`: Especifica el país donde se encuentra físicamente el dispositivo.
 
-- `hostname`: Specifies the hostname of the device
+- `geo`: Permite especificar las coordenadas de longitud y latitud de la ubicación física del dispositivo. Un tercer parámetro opcional puede indicar el radio en kilómetros desde el punto especificado.
 
-- `net`: Specifies the IP address of the host
+- `hostname`: Especifica el nombre de host del dispositivo.
 
-- `os`: Specifies the operating system running on the host
+- `net`: Especifica la dirección IP del host.
 
-- `port`: Specifies a particular port from those supported by the search engine
+- `os`: Especifica el sistema operativo que ejecuta el host.
 
-- `after/before`: Specifies a date range to narrow the search
+- `port`: Especifica un puerto particular de los soportados por el motor de búsqueda.
 
-- `has_screenshot`: Indicates whether a screenshot of the associated device exists.
+- `after/before`: Especifica un rango de fechas para acotar la búsqueda.
 
-These filters can be combined to create powerful, targeted searches for specific types of devices or services across the internet.
+- `has_screenshot`: Indica si existe una captura de pantalla del dispositivo asociado.
+
+Estos filtros pueden combinarse para crear búsquedas potentes y dirigidas a tipos específicos de dispositivos o servicios en internet.
+
+## Ejemplos de Uso 
+
+
+1. **Buscar cámaras IP en una ciudad específica:**
+   ```
+   city:"Madrid" port:554 has_screenshot:true
+   ```
+   Esto buscará cámaras IP en Madrid que tengan capturas de pantalla disponibles.
+
+2. **Identificar servidores web con vulnerabilidades conocidas:**
+   ```
+   http.title:"Apache2 Ubuntu Default Page" country:"ES"
+   ```
+   Esto buscará servidores Apache2 en España que podrían estar mal configurados.
+
+3. **Dispositivos IoT con puertos abiertos:**
+   ```
+   port:23 os:"Linux" country:"MX"
+   ```
+   Esto buscará dispositivos IoT con Telnet habilitado en México.
+
+4. **Buscar routers con configuraciones predeterminadas:**
+   ```
+   net:"192.168.1.0/24" "Default password"
+   ```
+   Esto buscará routers en un rango de red específico que aún utilicen contraseñas predeterminadas.
+
+5. **Identificar sistemas SCADA expuestos:**
+   ```
+   "SCADA" port:502 country:"US"
+   ```
+   Esto buscará sistemas SCADA accesibles en Estados Unidos.
+
+6. **Buscar dispositivos con servicios FTP abiertos:**
+   ```
+   port:21 "220"
+   ```
+   Esto buscará dispositivos con servicios FTP habilitados.
+
