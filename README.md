@@ -8,7 +8,7 @@ Este repositorio contiene una colección de notas sobre ciberseguridad creadas u
 - Seguridad de Aplicaciones Web
 - Criptografía
 - Análisis de Malware
-- Informática Forense
+- Informática Forensev
 - Técnicas de Hacking Ético
 
 ## Contenido
